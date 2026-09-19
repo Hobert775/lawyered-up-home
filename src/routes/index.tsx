@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Scale, ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero.jpg";
+import heroBg from "@/assets/hero-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -146,17 +146,29 @@ function SiteHeader() {
 
 function HeroSection() {
   return (
-    <section id="about" className="relative overflow-hidden">
+    <section id="about" className="relative isolate overflow-hidden">
+      <img
+        src={heroBg}
+        alt=""
+        aria-hidden
+        width={1920}
+        height={1024}
+        className="absolute inset-0 -z-10 size-full object-cover"
+      />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/4 h-[480px] w-[680px] rounded-full bg-primary/10 blur-3xl"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/85 to-background/40"
       />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/60"
+      />
+      <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28 lg:pb-32 lg:pt-36">
+        <div className="max-w-2xl">
           <p className="kicker">
             Trusted Legal Counsel &middot; Strong Representation &middot; Proven Commitment
           </p>
-          <h1 className="mt-6 font-display text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 font-display text-4xl font-medium leading-[1.08] tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Welcome to <span className="text-gold-gradient italic">Civil Law Firm</span>
           </h1>
           <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -174,21 +186,6 @@ function HeroSection() {
               Contact Us
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </a>
-          </div>
-        </div>
-        <div className="lg:col-span-5">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -inset-3 rounded-sm border border-primary/25"
-            />
-            <img
-              src={heroImage}
-              alt="The offices of Civil Law Firm at night, lit with warm golden light"
-              width={1200}
-              height={1504}
-              className="relative aspect-[4/5] w-full rounded-sm object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
-            />
           </div>
         </div>
       </div>
