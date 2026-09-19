@@ -293,6 +293,55 @@ function WhyChooseUsSection() {
   );
 }
 
+function AttorneysSection() {
+  return (
+    <section id="attorneys" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="flex items-end justify-between gap-6 border-b border-border pb-6">
+          <div>
+            <p className="kicker">Our Attorneys</p>
+            <h2 className="mt-3 max-w-[28ch] font-display text-3xl font-medium tracking-tight sm:text-4xl">
+              Meet the counsel behind every result.
+            </h2>
+          </div>
+          <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:block">
+            Ready to Serve You
+          </span>
+        </div>
+        <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {ATTORNEYS.map((attorney) => (
+            <article key={attorney.name} className="group">
+              <div className="relative overflow-hidden rounded-sm border border-border">
+                <img
+                  src={attorney.photo}
+                  alt={`${attorney.name}, ${attorney.role} at Civil Law Firm`}
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  className="aspect-[4/5] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent"
+                />
+              </div>
+              <h3 className="mt-5 font-display text-xl font-medium tracking-tight transition-colors group-hover:text-primary">
+                {attorney.name}
+              </h3>
+              <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                {attorney.role}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {attorney.focus}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CtaSection() {
   return (
     <section id="cta" className="border-t border-border">
