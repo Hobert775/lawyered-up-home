@@ -131,6 +131,7 @@ function Index() {
         <HeroSection />
         <PracticeAreasSection />
         <WhyChooseUsSection />
+        <AttorneysSection />
         <CtaSection />
         <ContactSection />
       </main>
