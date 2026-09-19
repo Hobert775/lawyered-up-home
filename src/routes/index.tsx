@@ -375,10 +375,13 @@ function CtaSection() {
 
 function ContactSection() {
   const contactItems = [
-    { label: "Office Address", value: "[Office Address]" },
-    { label: "Phone Number", value: "[Phone Number]" },
-    { label: "Email Address", value: "[Email Address]" },
-    { label: "Business Hours", value: "[Business Hours]" },
+    {
+      label: "Office Address",
+      value: "63 22B St - Port Saeed - Dubai - United Arab Emirates",
+    },
+    { label: "Phone Number", value: "+1 678AO AAL" },
+    { label: "Email Address", value: "civillaw@5678.com" },
+    { label: "Business Hours", value: "24 hours" },
   ];
 
   return (
