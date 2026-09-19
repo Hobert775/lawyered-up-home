@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Scale, ArrowRight } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import attorney1 from "@/assets/attorney-1.jpg";
+import attorney2 from "@/assets/attorney-2.jpg";
+import attorney3 from "@/assets/attorney-3.jpg";
+import attorney4 from "@/assets/attorney-4.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,7 +37,7 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
   { label: "Practice Areas", href: "#practice" },
-  { label: "Our Attorneys", href: "#why" },
+  { label: "Our Attorneys", href: "#attorneys" },
   { label: "Services", href: "#practice" },
   { label: "Contact", href: "#contact" },
 ];
@@ -89,6 +93,33 @@ const WHY_POINTS = [
   {
     name: "Results-Focused",
     blurb: "Strategic solutions designed around each client's objectives.",
+  },
+];
+
+const ATTORNEYS = [
+  {
+    photo: attorney1,
+    name: "James Whitfield",
+    role: "Managing Partner",
+    focus: "Civil & Commercial Law · Litigation",
+  },
+  {
+    photo: attorney2,
+    name: "Elena Marchetti",
+    role: "Senior Partner",
+    focus: "Family & Matrimonial Law · Estate Planning",
+  },
+  {
+    photo: attorney3,
+    name: "Marcus Bennett",
+    role: "Associate Attorney",
+    focus: "Criminal Defense · Immigration Law",
+  },
+  {
+    photo: attorney4,
+    name: "Priya Raghavan",
+    role: "Senior Associate",
+    focus: "Corporate & Business Law · Real Estate",
   },
 ];
 
