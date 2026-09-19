@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Scale, ArrowRight } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import attorney1 from "@/assets/attorney-1.jpg";
+import attorney2 from "@/assets/attorney-2.jpg";
+import attorney3 from "@/assets/attorney-3.jpg";
+import attorney4 from "@/assets/attorney-4.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,7 +37,7 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
   { label: "Practice Areas", href: "#practice" },
-  { label: "Our Attorneys", href: "#why" },
+  { label: "Our Attorneys", href: "#attorneys" },
   { label: "Services", href: "#practice" },
   { label: "Contact", href: "#contact" },
 ];
@@ -92,6 +96,33 @@ const WHY_POINTS = [
   },
 ];
 
+const ATTORNEYS = [
+  {
+    photo: attorney1,
+    name: "James Whitfield",
+    role: "Managing Partner",
+    focus: "Civil & Commercial Law · Litigation",
+  },
+  {
+    photo: attorney2,
+    name: "Elena Marchetti",
+    role: "Senior Partner",
+    focus: "Family & Matrimonial Law · Estate Planning",
+  },
+  {
+    photo: attorney3,
+    name: "Marcus Bennett",
+    role: "Associate Attorney",
+    focus: "Criminal Defense · Immigration Law",
+  },
+  {
+    photo: attorney4,
+    name: "Priya Raghavan",
+    role: "Senior Associate",
+    focus: "Corporate & Business Law · Real Estate",
+  },
+];
+
 function Index() {
   return (
     <div id="home" className="min-h-screen bg-background font-sans text-foreground">
@@ -100,6 +131,7 @@ function Index() {
         <HeroSection />
         <PracticeAreasSection />
         <WhyChooseUsSection />
+        <AttorneysSection />
         <CtaSection />
         <ContactSection />
       </main>
@@ -254,6 +286,55 @@ function WhyChooseUsSection() {
                 {point.blurb}
               </p>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AttorneysSection() {
+  return (
+    <section id="attorneys" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="flex items-end justify-between gap-6 border-b border-border pb-6">
+          <div>
+            <p className="kicker">Our Attorneys</p>
+            <h2 className="mt-3 max-w-[28ch] font-display text-3xl font-medium tracking-tight sm:text-4xl">
+              Meet the counsel behind every result.
+            </h2>
+          </div>
+          <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:block">
+            Ready to Serve You
+          </span>
+        </div>
+        <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {ATTORNEYS.map((attorney) => (
+            <article key={attorney.name} className="group">
+              <div className="relative overflow-hidden rounded-sm border border-border">
+                <img
+                  src={attorney.photo}
+                  alt={`${attorney.name}, ${attorney.role} at Civil Law Firm`}
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  className="aspect-[4/5] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent"
+                />
+              </div>
+              <h3 className="mt-5 font-display text-xl font-medium tracking-tight transition-colors group-hover:text-primary">
+                {attorney.name}
+              </h3>
+              <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                {attorney.role}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {attorney.focus}
+              </p>
+            </article>
           ))}
         </div>
       </div>
