@@ -380,7 +380,7 @@ function ContactSection() {
       value: "63 22B St - Port Saeed - Dubai - United Arab Emirates",
     },
     { label: "Phone Number", value: "+1 678AO AAL" },
-    { label: "Email Address", value: "civillaw@5678.com" },
+    { label: "Email Address", value: "akufijjs@lawfirm" },
     { label: "Business Hours", value: "24 hours" },
   ];
 
