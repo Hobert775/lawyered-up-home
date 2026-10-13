@@ -10,21 +10,21 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Civil Law Firm — Trusted Legal Counsel. Strong Representation.",
+        title: "Civil Law Firm — Trusted Legal Counsel in Dubai",
       },
       {
         name: "description",
         content:
-          "Civil Law Firm provides professional, confidential, and client-focused legal services to individuals, businesses, and organizations. Schedule a consultation today.",
+          "Civil Law Firm in Dubai provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today.",
       },
       {
         property: "og:title",
-        content: "Civil Law Firm — Trusted Legal Counsel. Strong Representation.",
+        content: "Civil Law Firm — Trusted Legal Counsel in Dubai",
       },
       {
         property: "og:description",
         content:
-          "Professional, confidential, and client-focused legal services for individuals, businesses, and organizations.",
+          "Civil Law Firm in Dubai provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
