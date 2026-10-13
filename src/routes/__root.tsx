@@ -112,6 +112,26 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function removeLovableBadge() {
+                  var badges = document.querySelectorAll('a[href*="lovable.dev"], [id*="lovable-badge"], [class*="lovable-badge"], [data-lovable-badge]');
+                  for (var i = 0; i < badges.length; i++) {
+                    badges[i].remove();
+                  }
+                }
+                if (typeof window !== 'undefined') {
+                  window.addEventListener('DOMContentLoaded', removeLovableBadge);
+                  removeLovableBadge();
+                  var obs = new MutationObserver(removeLovableBadge);
+                  obs.observe(document.documentElement, { childList: true, subtree: true });
+                }
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );
