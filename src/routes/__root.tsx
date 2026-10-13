@@ -77,8 +77,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Civil Law Firm" },
-      { name: "description", content: "Trusted legal counsel, strong representation, proven commitment." },
+      { title: "Civil Law Firm — Trusted Legal Counsel in Dubai" },
+      { name: "description", content: "Civil Law Firm in Dubai provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today." },
       { name: "author", content: "Civil Law Firm" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
