@@ -5,6 +5,7 @@ import attorney1 from "@/assets/attorney-1.jpg";
 import attorney2 from "@/assets/attorney-2.jpg";
 import attorney3 from "@/assets/attorney-3.jpg";
 import attorney4 from "@/assets/attorney-4.jpg";
+import brandMark from "@/assets/brand-mark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
