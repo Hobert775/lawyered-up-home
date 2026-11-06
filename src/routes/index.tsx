@@ -5,6 +5,7 @@ import attorney1 from "@/assets/attorney-1.jpg";
 import attorney2 from "@/assets/attorney-2.jpg";
 import attorney3 from "@/assets/attorney-3.jpg";
 import attorney4 from "@/assets/attorney-4.jpg";
+import brandMark from "@/assets/brand-mark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -145,9 +146,14 @@ function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <a href="#home" className="flex items-center gap-3">
-          <span className="flex size-9 items-center justify-center rounded-sm border border-primary/40 bg-primary/10 text-primary">
-            <Scale className="size-5" strokeWidth={1.75} />
-          </span>
+          <img
+            src={brandMark}
+            alt="Civil Law Firm emblem"
+            width={36}
+            height={36}
+            loading="lazy"
+            className="size-9 shrink-0"
+          />
           <span className="leading-tight">
             <span className="block font-display text-base font-semibold tracking-wide text-foreground">
               CIVIL LAW FIRM
