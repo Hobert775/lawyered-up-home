@@ -1,31 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Scale, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Scale, ArrowRight, CheckCircle2, Send, MapPin, Phone, Mail, Clock } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import attorney1 from "@/assets/attorney-1.jpg";
 import attorney2 from "@/assets/attorney-2.jpg";
 import attorney3 from "@/assets/attorney-3.jpg";
 import attorney4 from "@/assets/attorney-4.jpg";
 import brandMark from "@/assets/brand-mark.png";
+import {
+  useSiteData,
+  addInquiry,
+  type SiteContactInfo,
+  type PracticeAreaItem,
+} from "@/lib/site-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Civil Law Firm — Trusted Legal Counsel in Dubai",
+        title: "Summit Legal Advocates — Trusted Legal Counsel",
       },
       {
         name: "description",
         content:
-          "Civil Law Firm in Dubai provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today.",
+          "Summit Legal Advocates provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today.",
       },
       {
         property: "og:title",
-        content: "Civil Law Firm — Trusted Legal Counsel in Dubai",
+        content: "Summit Legal Advocates — Trusted Legal Counsel",
       },
       {
         property: "og:description",
         content:
-          "Civil Law Firm in Dubai provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today.",
+          "Summit Legal Advocates provides professional, confidential, client-focused legal services for individuals and businesses. Schedule a consultation today.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -41,41 +48,6 @@ const NAV_LINKS = [
   { label: "Our Attorneys", href: "#attorneys" },
   { label: "Services", href: "#practice" },
   { label: "Contact", href: "#contact" },
-];
-
-const PRACTICE_AREAS = [
-  {
-    name: "Civil & Commercial Law",
-    blurb: "Contracts, disputes, and commercial relationships handled with care.",
-  },
-  {
-    name: "Criminal Defense",
-    blurb: "Vigorous, discreet defense protecting your liberty and reputation.",
-  },
-  {
-    name: "Family & Matrimonial Law",
-    blurb: "Compassionate guidance through divorce, custody, and support matters.",
-  },
-  {
-    name: "Corporate & Business Law",
-    blurb: "Formation, governance, and transactions for growing enterprises.",
-  },
-  {
-    name: "Real Estate & Property Law",
-    blurb: "Closings, leases, and title matters resolved with precision.",
-  },
-  {
-    name: "Immigration Law",
-    blurb: "Visas, residency, and citizenship pursued methodically.",
-  },
-  {
-    name: "Estate Planning & Probate",
-    blurb: "Wills, trusts, and estates planned for the generations ahead.",
-  },
-  {
-    name: "Litigation & Dispute Resolution",
-    blurb: "Trial-ready advocacy and strategic settlement solutions.",
-  },
 ];
 
 const WHY_POINTS = [
@@ -125,23 +97,25 @@ const ATTORNEYS = [
 ];
 
 function Index() {
+  const { contactInfo, practiceAreas } = useSiteData();
+
   return (
     <div id="home" className="min-h-screen bg-background font-sans text-foreground">
-      <SiteHeader />
+      <SiteHeader firmName={contactInfo.firmName} />
       <main>
-        <HeroSection />
-        <PracticeAreasSection />
+        <HeroSection contactInfo={contactInfo} />
+        <PracticeAreasSection practiceAreas={practiceAreas} />
         <WhyChooseUsSection />
         <AttorneysSection />
         <CtaSection />
-        <ContactSection />
+        <ContactSection contactInfo={contactInfo} practiceAreas={practiceAreas} />
       </main>
-      <SiteFooter />
+      <SiteFooter firmName={contactInfo.firmName} />
     </div>
   );
 }
 
-function SiteHeader() {
+function SiteHeader({ firmName }: { firmName: string }) {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
@@ -156,7 +130,7 @@ function SiteHeader() {
           />
           <span className="leading-tight">
             <span className="block font-display text-base font-semibold tracking-wide text-foreground">
-              CIVIL LAW FIRM
+              {firmName.toUpperCase()}
             </span>
             <span className="block text-[10px] font-medium uppercase tracking-[0.24em] text-primary">
               Attorneys at Law
@@ -182,7 +156,7 @@ function SiteHeader() {
   );
 }
 
-function HeroSection() {
+function HeroSection({ contactInfo }: { contactInfo: SiteContactInfo }) {
   return (
     <section id="about" className="relative isolate overflow-hidden">
       <img
@@ -203,18 +177,12 @@ function HeroSection() {
       />
       <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28 lg:pb-32 lg:pt-36">
         <div className="max-w-2xl">
-          <p className="kicker">
-            Trusted Legal Counsel &middot; Strong Representation &middot; Proven Commitment
-          </p>
+          <p className="kicker">{contactInfo.tagline}</p>
           <h1 className="mt-6 font-display text-4xl font-medium leading-[1.08] tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            Welcome to <span className="text-gold-gradient italic">Civil Law Firm</span>
+            Welcome to <span className="text-gold-gradient italic">{contactInfo.firmName}</span>
           </h1>
           <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            At Civil Law Firm, we provide professional, confidential, and
-            client-focused legal services to individuals, businesses, and
-            organizations. Our firm is committed to protecting our
-            clients&rsquo; rights and providing practical legal solutions
-            tailored to their needs.
+            {contactInfo.description}
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <a href="#contact" className="btn-gold text-sm">
@@ -231,7 +199,7 @@ function HeroSection() {
   );
 }
 
-function PracticeAreasSection() {
+function PracticeAreasSection({ practiceAreas }: { practiceAreas: PracticeAreaItem[] }) {
   return (
     <section id="practice" className="border-t border-border">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
@@ -243,13 +211,13 @@ function PracticeAreasSection() {
             </h2>
           </div>
           <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:block">
-            Eight Disciplines
+            {practiceAreas.length} Disciplines
           </span>
         </div>
         <div className="mt-2 grid gap-x-12 sm:grid-cols-2">
-          {PRACTICE_AREAS.map((area, index) => (
+          {practiceAreas.map((area, index) => (
             <div
-              key={area.name}
+              key={area.id || area.name}
               className="group flex items-baseline gap-5 border-b border-border py-6"
             >
               <span className="w-8 shrink-0 font-display text-sm font-medium text-primary">
@@ -320,7 +288,7 @@ function AttorneysSection() {
               <div className="relative overflow-hidden rounded-sm border border-border">
                 <img
                   src={attorney.photo}
-                  alt={`${attorney.name}, ${attorney.role} at Civil Law Firm`}
+                  alt={`${attorney.name}, ${attorney.role}`}
                   width={1024}
                   height={1024}
                   loading="lazy"
@@ -379,50 +347,205 @@ function CtaSection() {
   );
 }
 
-function ContactSection() {
+function ContactSection({
+  contactInfo,
+  practiceAreas,
+}: {
+  contactInfo: SiteContactInfo;
+  practiceAreas: PracticeAreaItem[];
+}) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    practiceArea: practiceAreas[0]?.name || "Civil & Commercial Law",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+
+    addInquiry({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || "Not provided",
+      practiceArea: formData.practiceArea,
+      message: formData.message,
+    });
+
+    setSubmitted(true);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      practiceArea: practiceAreas[0]?.name || "Civil & Commercial Law",
+      message: "",
+    });
+  };
+
   const contactItems = [
-    {
-      label: "Office Address",
-      value: "63 22B St - Port Saeed - Dubai - United Arab Emirates",
-    },
-    { label: "Phone Number", value: "+1 678AO AAL" },
-    { label: "Email Address", value: "akufijjs@lawfirm" },
-    { label: "Business Hours", value: "24 hours" },
+    { label: "Office Address", value: contactInfo.address, icon: MapPin },
+    { label: "Phone Number", value: contactInfo.phone, icon: Phone },
+    { label: "Email Address", value: contactInfo.email, icon: Mail },
+    { label: "Business Hours", value: contactInfo.businessHours, icon: Clock },
   ];
 
   return (
     <section id="contact" className="border-t border-border">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div>
-            <p className="kicker">Contact</p>
+        <div className="grid gap-12 lg:grid-cols-12">
+          {/* Left: Contact Info */}
+          <div className="lg:col-span-5">
+            <p className="kicker">Confidential Counsel</p>
             <h2 className="mt-3 font-display text-3xl font-medium tracking-tight sm:text-4xl">
-              Civil Law Firm
+              {contactInfo.firmName}
             </h2>
-            <p className="mt-5 max-w-[44ch] leading-relaxed text-muted-foreground">
-              Reach out to discuss your matter. Every inquiry is treated with
-              strict confidence.
+            <p className="mt-5 leading-relaxed text-muted-foreground">
+              {contactInfo.consultationNotice}
             </p>
+
+            <dl className="mt-8 space-y-6">
+              {contactItems.map((item) => (
+                <div key={item.label} className="flex items-start gap-3.5 border-l-2 border-primary/40 pl-4">
+                  <item.icon className="size-4 shrink-0 mt-1 text-primary" />
+                  <div>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-1 font-display text-base text-foreground">
+                      {item.value}
+                    </dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
           </div>
-          <dl className="grid gap-8 sm:grid-cols-2">
-            {contactItems.map((item) => (
-              <div key={item.label} className="border-l-2 border-primary/40 pl-4">
-                <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  {item.label}
-                </dt>
-                <dd className="mt-1.5 font-display text-lg text-foreground">
-                  {item.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+
+          {/* Right: Interactive Inquiry Form */}
+          <div className="lg:col-span-7">
+            <div className="rounded-sm border border-border bg-card p-6 sm:p-8">
+              <h3 className="font-display text-2xl font-medium tracking-tight">
+                Submit an Inquiry
+              </h3>
+              <p className="mt-1 text-xs text-muted-foreground">
+                All communications are protected under strict attorney-client privilege.
+              </p>
+
+              {submitted ? (
+                <div className="mt-6 rounded-sm border border-primary/40 bg-primary/10 p-6 text-center">
+                  <CheckCircle2 className="mx-auto size-10 text-primary" />
+                  <h4 className="mt-3 font-display text-lg font-semibold text-foreground">
+                    Inquiry Received
+                  </h4>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    Thank you for reaching out. Your legal matter has been delivered
+                    confidentially to our counsel team. We will review the details and contact you promptly.
+                  </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="btn-gold-outline mt-5 text-xs !py-2 !px-4"
+                  >
+                    Send Another Inquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        Your Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="e.g. Robert Sterling"
+                        className="mt-1.5 w-full rounded-sm border border-border bg-background px-3.5 py-2 text-xs text-foreground focus:border-primary focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="e.g. robert@example.com"
+                        className="mt-1.5 w-full rounded-sm border border-border bg-background px-3.5 py-2 text-xs text-foreground focus:border-primary focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+971 50 123 4567"
+                        className="mt-1.5 w-full rounded-sm border border-border bg-background px-3.5 py-2 text-xs text-foreground focus:border-primary focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        Practice Area of Inquiry
+                      </label>
+                      <select
+                        value={formData.practiceArea}
+                        onChange={(e) => setFormData({ ...formData, practiceArea: e.target.value })}
+                        className="mt-1.5 w-full rounded-sm border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"
+                      >
+                        {practiceAreas.map((pa) => (
+                          <option key={pa.id || pa.name} value={pa.name}>
+                            {pa.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Case Details & Inquiry Message *
+                    </label>
+                    <textarea
+                      rows={4}
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Briefly describe your situation, legal questions, or required services..."
+                      className="mt-1.5 w-full rounded-sm border border-border bg-background px-3.5 py-2 text-xs text-foreground focus:border-primary focus:outline-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-gold mt-2 w-full text-xs font-semibold !py-3"
+                  >
+                    <Send className="size-3.5" />
+                    <span>Send Confidential Inquiry</span>
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function SiteFooter() {
+function SiteFooter({ firmName }: { firmName: string }) {
   return (
     <footer className="border-t border-border bg-ink-deep">
       <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
@@ -430,11 +553,11 @@ function SiteFooter() {
           <span className="flex items-center gap-2.5">
             <Scale className="size-4 text-primary" strokeWidth={1.75} />
             <span className="font-display text-sm font-semibold tracking-wide">
-              CIVIL LAW FIRM
+              {firmName.toUpperCase()}
             </span>
           </span>
           <span className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Civil Law Firm. All rights reserved.
+            &copy; {new Date().getFullYear()} {firmName}. All rights reserved.
           </span>
         </div>
         <p className="mt-6 max-w-[72ch] text-xs leading-relaxed text-muted-foreground">
